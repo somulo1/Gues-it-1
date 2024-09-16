@@ -47,8 +47,8 @@ func main() {
 
 		// Calculate and print the lower and upper bounds
 		if len(data) > 1 {
-			lower := math.Round(average - 2*stdDev)
-			upper := math.Round(average + 2*stdDev)
+			lower := math.Round(average - 2.5*stdDev)
+			upper := math.Round(average + 2.5*stdDev)
 
 			if lower < math.MinInt64 || upper > math.MaxInt64 {
 				fmt.Printf("cannot use an overflow value %.f\n", num)
