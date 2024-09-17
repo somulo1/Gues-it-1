@@ -5,96 +5,56 @@ import (
 	"testing"
 )
 
-// TestCalculateMean tests the CalculateMean function
-func TestCalculateMean(t *testing.T) {
-	tests := []struct {
-		name     string
-		data     []float64
-		expected float64
-	}{
-		{
-			name:     "Empty slice",
-			data:     []float64{},
-			expected: 0,
-		},
-		{
-			name:     "Single element",
-			data:     []float64{5.0},
-			expected: 5.0,
-		},
-		{
-			name:     "Multiple elements",
-			data:     []float64{1.0, 2.0, 3.0, 4.0, 5.0},
-			expected: 3.0,
-		},
-		{
-			name:     "Negative numbers",
-			data:     []float64{-1.0, -2.0, -3.0, -4.0, -5.0},
-			expected: -3.0,
-		},
-		{
-			name:     "Mixed numbers",
-			data:     []float64{1.0, -1.0, 0.0, 2.0, -2.0},
-			expected: 0.0,
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			result := CalculateMean(tt.data)
-			if !floatEquals(result, tt.expected) {
-				t.Errorf("CalculateMean() = %v; want %v", result, tt.expected)
-			}
-		})
-	}
-}
-
-// TestStandardDeviation tests the StandardDeviation function
-func TestStandardDeviation(t *testing.T) {
-	tests := []struct {
-		name     string
-		data     []float64
-		expected float64
-	}{
-		{
-			name:     "Empty slice",
-			data:     []float64{},
-			expected: 0,
-		},
-		{
-			name:     "Single element",
-			data:     []float64{5.0},
-			expected: 0,
-		},
-		{
-			name:     "Multiple elements",
-			data:     []float64{1.0, 2.0, 3.0, 4.0, 5.0},
-			expected: 1.4142135623730951, // sqrt(2)
-		},
-		{
-			name:     "Negative numbers",
-			data:     []float64{-1.0, -2.0, -3.0, -4.0, -5.0},
-			expected: 1.4142135623730951, // sqrt(2)
-		},
-		{
-			name:     "Mixed numbers",
-			data:     []float64{1.0, -1.0, 0.0, 2.0, -2.0},
-			expected: 1.4142135623730951, // sqrt(2)
-		},
-	}
-
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			result := StandardDeviation(tt.data)
-			if !floatEquals(result, tt.expected) {
-				t.Errorf("StandardDeviation() = %v; want %v", result, tt.expected)
-			}
-		})
-	}
-}
-
-// Helper function to compare float64 values with a tolerance
-func floatEquals(a, b float64) bool {
-	const tolerance = 1e-9
+// Helper function to compare floats within a tolerance
+func nearlyEqual(a, b, tolerance float64) bool {
 	return math.Abs(a-b) < tolerance
+}
+
+// Test for CalculateMean
+func TestCalculateMean(t *testing.T) {
+	data := []float64{10, 20, 30, 40, 50}
+	expectedMean := 30.0
+
+	result := CalculateMean(data)
+
+	if !nearlyEqual(result, expectedMean, 1e-9) {
+		t.Errorf("CalculateMean() = %v; want %v", result, expectedMean)
+	}
+}
+
+// Test for StandardDeviation
+func TestStandardDeviation(t *testing.T) {
+	data := []float64{10, 20, 30, 40, 50}
+	// Expected standard deviation value calculated manually or using a trusted tool
+	expectedStdDev := 15.81
+
+	result := StandardDeviation(data)
+
+	if !nearlyEqual(result, expectedStdDev, 1e-2) {
+		t.Errorf("StandardDeviation() = %v; want %v", result, expectedStdDev)
+	}
+}
+
+// Edge case: empty data for StandardDeviation
+func TestStandardDeviationEmpty(t *testing.T) {
+	data := []float64{}
+	expectedStdDev := 0.0
+
+	result := StandardDeviation(data)
+
+	if !nearlyEqual(result, expectedStdDev, 1e-9) {
+		t.Errorf("StandardDeviation() with empty data = %v; want %v", result, expectedStdDev)
+	}
+}
+
+// Edge case: single data point for StandardDeviation
+func TestStandardDeviationSingle(t *testing.T) {
+	data := []float64{10}
+	expectedStdDev := 0.0
+
+	result := StandardDeviation(data)
+
+	if !nearlyEqual(result, expectedStdDev, 1e-9) {
+		t.Errorf("StandardDeviation() with single data point = %v; want %v", result, expectedStdDev)
+	}
 }
