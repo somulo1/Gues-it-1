@@ -1,3 +1,3 @@
-module guess-it-1
+module student
 
-go 1.22
+go 1.18
