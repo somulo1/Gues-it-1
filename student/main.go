@@ -9,7 +9,7 @@ import (
 	"strconv"
 	"strings"
 
-	"guess-it-1/helperfunctions"
+	"student/helperfunctions"
 )
 
 func main() {
