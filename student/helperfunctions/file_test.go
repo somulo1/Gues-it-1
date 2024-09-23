@@ -25,8 +25,15 @@ func TestCalculateMean(t *testing.T) {
 // Test for StandardDeviation
 func TestStandardDeviation(t *testing.T) {
 	data := []float64{10, 20, 30, 40, 50}
-	// Expected standard deviation value calculated manually or using a trusted tool
-	expectedStdDev := 15.81
+	// Calculate the expected standard deviation
+	mean := CalculateMean(data)
+	var sumSquaredDiffs float64
+
+	for _, value := range data {
+		diff := value - mean
+		sumSquaredDiffs += diff * diff
+	}
+	expectedStdDev := math.Sqrt(sumSquaredDiffs / float64(len(data))) // Population standard deviation
 
 	result := StandardDeviation(data)
 
@@ -48,6 +55,7 @@ func TestStandardDeviationEmpty(t *testing.T) {
 }
 
 // Edge case: single data point for StandardDeviation
+
 func TestStandardDeviationSingle(t *testing.T) {
 	data := []float64{10}
 	expectedStdDev := 0.0
@@ -58,3 +66,4 @@ func TestStandardDeviationSingle(t *testing.T) {
 		t.Errorf("StandardDeviation() with single data point = %v; want %v", result, expectedStdDev)
 	}
 }
+
