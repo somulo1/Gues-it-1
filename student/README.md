@@ -46,7 +46,7 @@ To make it easier to run the Go program, we’ll use `npm` to manage the build a
 
      ```
     to it please add this ```?guesser=<name_of_guesser><br> ```for example 
-    ``` http://localhost:3000/?guesser=big-range```. name of the gueser can also be standard ```deviation``` or ```avarage```.
+    ``` http://localhost:3000/?guesser=big-range```. name of the gueser can also be ```standard deviation``` or ```avarage```.
 ## Author
 
 This project was solely done by <a href="https://github.com/Somulo1" > SAMUEL OKOTH OMULO </a>
