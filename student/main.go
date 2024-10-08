@@ -14,7 +14,7 @@ import (
 
 func main() {
 	// Define the window size
-	const windowSize = 20
+	
 	var data []float64
 
 	// Create a scanner to read from standard input
@@ -36,10 +36,7 @@ func main() {
 		data = append(data, num)
 
 		// Maintain a fixed window size
-		if len(data) > windowSize {
-			// Remove the oldest element to keep the window size fixed
-			data = data[1:]
-		}
+	
 
 		// Calculate mean and standard deviation for the current window
 		stdDev := helperfunctions.StandardDeviation(data)
@@ -47,8 +44,8 @@ func main() {
 
 		// Calculate and print the lower and upper bounds
 		if len(data) > 1 {
-			lower := math.Round(average - 3*stdDev)
-			upper := math.Round(average + 3*stdDev)
+			lower := math.Round(average - 1.96*stdDev)
+			upper := math.Round(average + 1.96*stdDev)
 
 			if lower < math.MinInt64 || upper > math.MaxInt64 {
 				fmt.Printf("cannot use an overflow value %.f\n", num)
